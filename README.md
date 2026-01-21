@@ -7,12 +7,12 @@
   <tr>
     <td>
       <a href="https://github.com/Konoaru384/StatisticPannel/releases/latest">
-        <img src="https://img.shields.io/github/v/release/Konoaru384/RoleDisplayPlugin?label=Latest%20Release&color=blue&style=for-the-badge" alt="Latest Release" />
+        <img src="https://img.shields.io/github/v/release/Konoaru384/StatisticPannel?label=Latest%20Release&color=blue&style=for-the-badge" alt="Latest Release" />
       </a>
     </td>
     <td>
       <a href="https://github.com/Konoaru384/StatisticPannel/releases">
-        <img src="https://img.shields.io/github/downloads/Konoaru384/RoleDisplayPlugin/total?label=Total%20Downloads&color=success&style=for-the-badge" alt="Total Downloads" />
+        <img src="https://img.shields.io/github/downloads/Konoaru384/StatisticPannel/total?label=Total%20Downloads&color=success&style=for-the-badge" alt="Total Downloads" />
       </a>
     </td>
     <td>
