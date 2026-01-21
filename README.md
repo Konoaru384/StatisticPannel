@@ -52,7 +52,7 @@ It can be used anywhere Subabase is available websites, dashboards, external too
 
   <tr>
     <td>Web Integration</td>
-    <td>Can be used anywhere Subabase works — websites, dashboards, external tools, etc.</td>
+    <td>Can be used anywhere Subabase works : websites, dashboards, external tools, etc.</td>
   </tr>
 
   <tr>
