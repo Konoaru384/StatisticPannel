@@ -1,281 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Player Statistics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --bg: #0d1117;
-    --card: #161b22;
-    --text: #e6edf3;
-    --blue: #58a6ff;
-    --accent: #ffa657;
-    --shadow: rgba(0, 0, 0, 0.35);
-  }
-  body {
-    margin: 0;
-    background: linear-gradient(145deg, #0d1117, #0b0f14);
-    font-family: "Poppins", sans-serif;
-    color: var(--text);
-  }
-  .container {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 25px;
-    background: rgba(22, 27, 34, 0.8);
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 30px var(--shadow);
-  }
-  h1 {
-    text-align: center;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--blue);
-    margin-bottom: 25px;
-    text-shadow: 0 0 10px #58a6ff55;
-  }
-  .search-box {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    background: var(--card);
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 25px;
-    position: relative;
-  }
-  select, input {
-    background-color: #0d1117;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    color: var(--text);
-    padding: 10px 14px;
-    font-size: 15px;
-  }
-  button {
-    border: none;
-    background-color: var(--blue);
-    color: #fff;
-    font-weight: 600;
-    border-radius: 8px;
-    padding: 10px 16px;
-    cursor: pointer;
-    transition: all 0.25s;
-  }
-  button:hover {
-    background-color: #1f6feb;
-    transform: translateY(-2px);
-  }
-  .suggestions {
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-    background: var(--card);
-    border-radius: 8px;
-    box-shadow: 0 0 10px #00000055;
-    z-index: 10;
-  }
-  .suggestions div {
-    padding: 8px 12px;
-    cursor: pointer;
-    border-bottom: 1px solid #30363d;
-  }
-  .suggestions div:hover {
-    background: #1f6feb33;
-  }
-  .result {
-    background-color: var(--card);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 25px;
-  }
-  .player-info p {
-    margin: 6px 0;
-    font-size: 15px;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  .card {
-    background-color: var(--card);
-    border-radius: 14px;
-    padding: 15px 18px;
-    box-shadow: 0 0 15px #00000033;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 0 20px #00000055;
-  }
-  .card h2 {
-    color: var(--blue);
-    font-size: 18px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #30363d;
-    padding-bottom: 8px;
-  }
-  .list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .list li {
-    border-bottom: 1px solid #30363d;
-    padding: 5px 0;
-    font-size: 14px;
-  }
-  .list li b {
-    color: var(--accent);
-  }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#09090b;font-family:'Inter',system-ui,sans-serif;color:#fafafa;min-height:100vh}
+.bgeffect{position:fixed;top:-30%;left:-10%;width:500px;height:500px;background:#6366f1;border-radius:50%;filter:blur(150px);opacity:.1;z-index:-1}
+.bgeffect2{position:fixed;bottom:-20%;right:-5%;width:400px;height:400px;background:#a855f7;border-radius:50%;filter:blur(130px);opacity:.08;z-index:-1}
+.wrap{max-width:1180px;margin:0 auto;padding:35px 20px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:45px}
+.logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700}
+.logo svg{width:36px;height:36px}
+.langbox{display:flex;border:1px solid #27272a;border-radius:10px;overflow:hidden}
+.langbox button{padding:9px 16px;background:0;border:0;color:#71717a;font-size:13px;cursor:pointer;transition:.2s}
+.langbox button.on{background:#6366f1;color:#fff}
+.langbox button:hover:not(.on){color:#fff}
+.searchblock{background:#18181b;border:1px solid #27272a;border-radius:16px;padding:24px;margin-bottom:35px;position:relative}
+.searchrow{display:flex;gap:10px;flex-wrap:wrap}
+.selwrap{position:relative}
+.selwrap svg{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:#52525b;pointer-events:none}
+.searchblock select{appearance:none;background:#0a0a0b;border:1px solid #27272a;border-radius:10px;color:#e4e4e7;padding:12px 40px 12px 14px;font-size:14px;font-family:inherit;cursor:pointer}
+.searchblock select:focus{outline:0;border-color:#6366f1}
+.inpwrap{flex:1;min-width:220px;position:relative}
+.inpwrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:#52525b}
+.searchblock input{width:100%;background:#0a0a0b;border:1px solid #27272a;border-radius:10px;color:#e4e4e7;padding:12px 14px 12px 44px;font-size:14px;font-family:inherit}
+.searchblock input::placeholder{color:#52525b}
+.searchblock input:focus{outline:0;border-color:#6366f1}
+.srcbtn{display:flex;align-items:center;gap:7px;background:#6366f1;border:0;border-radius:10px;color:#fff;padding:12px 22px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.srcbtn:hover{background:#4f46e5;transform:translateY(-1px)}
+.sugg{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#1c1c1f;border:1px solid #27272a;border-radius:10px;overflow:hidden;z-index:50;display:none}
+.sugg.show{display:block}
+.sugg>div{padding:12px 15px;cursor:pointer;display:flex;align-items:center;gap:10px;border-bottom:1px solid #27272a;font-size:14px}
+.sugg>div:last-child{border:0}
+.sugg>div:hover{background:#27272a}
+.sugg svg{width:16px;height:16px;opacity:.5}
+.pcard{background:#18181b;border:1px solid #27272a;border-radius:16px;padding:25px;margin-bottom:35px;display:none}
+.pcard.vis{display:block}
+.phead{display:flex;align-items:center;gap:18px;margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid #27272a}
+.pavatar{width:70px;height:70px;background:linear-gradient(135deg,#6366f1 0%,#a855f7 100%);border-radius:16px;display:flex;align-items:center;justify-content:center}
+.pavatar svg{width:34px;height:34px}
+.pname{font-size:24px;font-weight:700}
+.pid{color:#71717a;font-size:13px;margin-top:3px}
+.pstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.pstat{background:#0f0f10;border-radius:12px;padding:15px;text-align:center}
+.pstat:hover{background:#1a1a1d}
+.pstatval{font-size:22px;font-weight:700;color:#a5b4fc}
+.pstatlbl{font-size:12px;color:#71717a;margin-top:5px}
+.sectitle{font-size:18px;font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.sectitle svg{width:22px;height:22px;color:#6366f1}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
+.lbcard{background:#18181b;border:1px solid #27272a;border-radius:16px;padding:22px;transition:.25s}
+.lbcard:hover{border-color:#3f3f46;transform:translateY(-3px)}
+.lbhead{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #27272a}
+.lbicon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.lbicon svg{width:20px;height:20px}
+.lbicon.t1{background:rgba(34,197,94,.12);color:#22c55e}
+.lbicon.t2{background:rgba(239,68,68,.12);color:#ef4444}
+.lbicon.t3{background:rgba(168,85,247,.12);color:#a855f7}
+.lbicon.t4{background:rgba(234,179,8,.12);color:#eab308}
+.lbtitle{font-size:15px;font-weight:600}
+.lbrows{display:flex;flex-direction:column;gap:8px}
+.lbrow{display:flex;align-items:center;gap:10px;padding:10px;background:#0f0f10;border-radius:10px}
+.lbrow:hover{background:#17171a}
+.rnk{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.r1{background:linear-gradient(135deg,#fbbf24,#d97706);color:#000}
+.r2{background:#71717a;color:#000}
+.r3{background:#92400e;color:#fff}
+.r4,.r5{background:#27272a;color:#71717a}
+.nick{flex:1;font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.val{font-size:13px;font-weight:600;color:#818cf8}
+.empty{text-align:center;padding:30px;color:#52525b}
+.ldng{display:flex;justify-content:center;gap:5px;padding:18px}
+.ldng span{width:7px;height:7px;background:#6366f1;border-radius:50%;animation:ld 1.2s infinite ease-in-out}
+.ldng span:nth-child(2){animation-delay:.1s}
+.ldng span:nth-child(3){animation-delay:.2s}
+@keyframes ld{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+@media(max-width:640px){header{flex-direction:column;gap:15px}.searchrow{flex-direction:column}.selwrap,.srcbtn{width:100%}.srcbtn{justify-content:center}}
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>📊 PLAYER STATISTICS</h1>
+<div class="bgeffect"></div>
+<div class="bgeffect2"></div>
 
-  <div class="search-box">
-    <select id="searchType">
-      <option value="nickname">Nickname</option>
-      <option value="steam_id">Steam ID</option>
-    </select>
-    <input id="searchInput" placeholder="Enter a nickname or Steam ID…" oninput="showSuggestions()" />
-    <button onclick="searchPlayer()">Search</button>
-    <div id="suggestions" class="suggestions"></div>
+<div class="wrap">
+  <header>
+    <div class="logo">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="160" height="160" viewBox="0 0 160 160">
+                    <image xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAQAElEQVR4AexcB1wURxf/zx1VisCByoEKGoklKnbAHqOxJkZjTPLZe++mGhNbTGJXxBh7jxqNvRNjBWMvqLE3SqSIvcHt997KUs67406KJD/2t3NT3ps3s/P2zbyyoEL+ladWIJ8heYodQD5D8hmSx1Ygj00nX0LyGZLHViCPTSdfQvIZksdWII9NJ19C8hmSx1Ygj00nZyQkjz3kv2k6+QzJY9zKZ0g+Q/LYCuSx6fynJGSVJKkPxUZVDUuI/CwsLnLjwfjIs2FxUQlUTjoYF/WUy9QWEZ4Q9Xt4fOSosNjoeluki7Z5iSf/CYaE375ZKiwucmbR+OhYnQqHIYkfIURzAVEGAq4QQi0EbEBlaisrSWgpQYyEStrtFu8QczA+anZYbGTlvMAYVV6YxKvOITzhZgV+23Uq1XkI0Qe04JbSkgRcBNADKnGUmLL1wJ1b/niN17+SIUckyTo8PvobnU59mN92IUT2PIdKNFYli8Ph8VFTdl+9avc6+JI9D5KLMw+7E+3zPD76kARptBCwyfahhbCSgEF2zrbhvBVmO/1MCKoygecpMB3KZXTJ0l4IVMqFiVWUVOpwUgKCcmGs1CH+NQw5EBddjd7cfSqBoqmzz+mCgBudL9sPxkVXz+mhFPr/CoYciY31FEK3gbYojTLx3MuFoyRJm3Nr+8rzDNktSVbPVM9XCogiuceEjCOpVHCXVKo1B2/etM8Iyf5anmeI/Z3o0QKonf2PbiFFIcqLAupxbdpA3aJyxR6tAqpdalqh3PNmFSs8/jCwenjjcuXes5CiQfQ8zRDWqCQdhhic+WtofP7kyQBxu1ZEWf8Kk7+bMbHkmrBQq+W7N9n1H/lFDQ9toWUf1KiyiKZF7w/9vuKdpxmCZGkcBPKMa2P9uB/VdRrVLzVu9jSHcpUqwMbWFo7OTqjVsD5mrVnmWMTLu3Xzyv7DXpEXcjeV/JsHf/6Kjy5HtsbHuT21uzH/YNOESZjSui3GvP0uZrbrhLCVq3Dj1BncvnwJ3YcOUAkhXpqWfQF7fDVxrAMBvq3n42NH+SvdeZYhyRLaC2HcAr9y5BhG12+E7+o0sCjtWbjY6EJFnjuPOT36wNdDg2mLf8Hv4aEYOXEsHl68hMVDhqHuu+/AysrKaH9tMW8ULe6dZOPg8Mq2S55kCKmZQoKurdEnJ8DNM2dgQ29l82GDYW7yLlsG10+cot4v30nPnuK3kaMw4Oth6DywNwppi8DK2hol3yyFryaMQbve3VC9dubr7OGpFVYq1dctq1X5p0n5cs9aB1Q71/it0q1eHtFwS64yJEKKsDkUF/M2Wb8TDsRG7QtLiL5I5QfkbX1IVvh1yveGxUX/QO0DSTp8DE/5RWvczVso5OODqu81Nzv5Vq6EuJs3XxDQ+43YvQcl/UqhVqO39SAvqh91aQ8+N17UjP/eSYizLvVW6aAf5gcXWr1/h/UXE8aUdvMotLhFpYr9jfdKg+QKQ3bfvu1IMYrP78W73NIJXaiAGEa6fS1I0htUdhBAAQgUo7w2hPQ55VPSpmi4lHDjFjRFvQwDjbRqaEu5HxePZ48fp2GklGL+voCqQTVSauZnJ/86iqWz5mLelJmIvHYDw8d+az9h4Sy7UmVKw96hACoH1sBPC0IcoFKNr+fv75IZ5RxnyMG4qJY2IukqxSh+gBAemU3IHLhELt64W7fg5m2ZF8W9aFF6ByTEk3Qp49yLjcWWSVNwYttOnKOD+1jYIQVkVl6xehV5O+s8sBc2rlwjb3VqtTpDX09vL5Sv4g+7pOdxLatXiXq/qv+4RhUqsAKQAY8rOcYQtrDD4qMmA9JakgZ3HiyrSdLpEPHHn5jVuQeePnyIIm+UNEgyOSnJYLt78eJQ21hj6bAvcHDFStw8HYF5vfrD26UgJiwIwdCxI6BWW2HBtFkG+5tqVKnUqNekESZ+PQZLQuZg3uRg3IlLgHJ9N2OCw/ojf6onLvrZs2qtoMH2ttYnG5QurVHgSp4jDKE3WNgnxMymQQbTWUA7EJWyeF8+chQhHbti9Xdj4KxxQ8dpE1EqoLpBqlM/+lSWBH2gnaMD+iyYi9K1ayJ07nws++wL9P1sILoN6YsSfm+ANSh+46sEVZelRb9/ZvXSFcrhS1IA2vfpjvZ9u2PDilWpXdRqtUzft9QbpB6Ps6/XpGExFxenJakIKYUcYUj4nZhpEqQuKWNkKWPtZ+u0YCwd+jkc3TTo9nMw2k36Eb6VKhml+/ThI6MwTVFvtBg+BO/07A7e5w0d4hWqVUGZCm8ZpWEOgI1Gb5/iL6SFzpcbl69l6NZj+EDr5OTkek3LlCmeHpDtDAlPiG5Kr6dZGkX6iRgq34+Px5ye/XB04xY0HtAXHaZOAKuuhnAtbbsbHYMqr3CIWzJOgxZNwNLShdTones34cnjJ6nd7eztUKZi+Wc6tVQltZEK2cqQ8Ph452Sd9DPRzfKdSAs2v98gPL53Dz1+mYkarT8gnUBkma5CQBApXhSlnpO5oEO0TpN3cPHsuUyHyVaGSNLTfqpsCCCxZCzoPwi0ZugSPA2FSvhm+iCWIhR50w9Hww9b2u2V8Xl7LF8lbZt99vQpzp08bZOkUx1JTzTbGMLfRBHhnpSydLOGtPrb0dCRRtV5xlS4eBbJlN4tevPCVq7G3sVLIemSU/GPb9kmt10M/wtMNxVAhXL16+LS3xdxaM9+quX+vWDaz8+gVu3edfbsjfSjZxtDit6JaUSvdLH0xF+lvOvnOYg8ex5tRo2Ek7vGKAmJFv7k9h3YGTIbD+isqdSsKep0aAehSrMBKjVtjJqffAzbAgXw5/xFOLB8pawuM1ErG1u0Gf0tJo38HvOmhOCfyGiQdsigHEtJpI5fppdg7JCvHu9Yt/HG4/uP2+sPlm0MEZBq6xO3tB594SLCf1uLt3t0RbHyxrWc+FuR2DYjBIV9S6Bhn56kxtYCq7QP7txB8vM0G4SNPpVahWKkMTUgmhXJTtizeBkuphh/2tJvovucWbiRcAeDOvZC80q10LRiUIbUzL8mzhw7Cb5WzF2cAaaPm65uEO/9qvWSP+vUJ+rogfBJj548998eEZFmqPAAlLKNIZIkDBsFNIi597bgELiTWhrwoXFf3NXjx3Em9A806tsbRch2ePLwAQ7+ugq75y3EWfJHJSenMSTm0mVym5/G+X37EXfjBhxdXdGodw/w/n1ozTp5WgULF0KzYUMweM2v+HbPLny3N1ROlZo1gZ2TI4ZvWItHJf3w193HKEnhQgWeWT5yb+jO7RHnRPq07UyE1brDR7w2HD3+zY5Tpx7KE9D7yRJDSMTFC2dh1FSyyIP0aFtUvXAwTPbENu7fB2orwy7uK8eOI+biZdTt2D4V5/jmbSjfsAHqd+2E6q1awsYuLRThFxiA4v4VUapGDVwjLy9LIG915erVgYdvcYSt+s3oHBt07wJdsk6OhRhFMgGghW0YlhDZwgSKQRD1M9ieaSN5ZJuQzXH8hbMQA6lDlj4AOLpxM7R+fihZvRqRevlmp+D14ycR+NGHYBfKhbBwGYnrThrjZw0jqcldwl7hImQlb5kWAt7aSpDn19ndHXzgM45+cnRzQ2U6g5jh+gqBPq6xuiRhECy8LGbIFumibVhc5ExI0hYaqyKlLN8PEhLkhanUvIlRWgeW/4ra7T+R4axNuRQuLJeVH47oKcEq9uaOqvsOuH7pcJpWKYRAoz49sGfhUtnjW+7terSlncKTBwZ3D1Ru3lRmHkuvMo5FuYT6h2Jv+VnSxyKG8De1Be84roIQfSwZJDPciN17IejwLf9OA4OovFWx5LBmdDp0N4pWKA9924QPbi9yeacnUMjXByWrVE7fBGuKg9fr3B57lyyX22vQeXVk/Ua5rP/DY3i9+SadWX/qg8yqC7p0QtXYLOQUJIsY8jw+erpKkt5L6Ztt2c3Tp+Xtyo6cf4aIXiY74o0a1cB+rZiLF8HbjSG8uh3bZWiu27kjBFnJGRqp4uDiQpZ/SyqB/GNueE5GGie5Qe/Ht2ol3KD56TWbXZUEapuNTIhmM4TOi6bkMDTb8DuxbTvmdOuFse80xrQ2H2Pz5Cm4HxcHQ9fNMxEo9lY5QyA8unsPTh7uJJQCHLOo2qK5QTxu9AsKhCIlLB1l69TiZoOJz52o83/LsFLEbI7RyxW9H+9y5Wje8bgb848exNyqZPjBjHRXGWl/uVmSxgm6Xga83LJ9ejAOU7yhJznVVuzejInzQ+Dj5ooFvfvjTmRUhg5P7j/A3duxYFdGBkBK5erxE/CpVEmuJdKiuHpp5bKxH0VKjElH+n6X/jpMUvdMZmIURQzTw5SyF9kqXI65fIUzi5OksywoZxZD6BB/RwL8YcbF+/3fe/djypI5qForAA6OjuCIWWdiTqt2bbFpwmSEkjU+ve2nGNewCZYMefEZk5PGFYau2KtXUbikL6mgybCytjKEkqGNpaR2u09hSjqUDt5ly8peAd7WjL1rDq4usnQ+SkxUulmUq4TkYkkHsxgiCWF8n9AbLWLnLnxAC+/o5KgHAd775EMk8EcGCfEYP2sqloVuQsduHeFAuLevZIwXpO/Mi/Xo7l04UTwkfbuxMlvlvMjG4Eq7K/nJEm+b3opUajVs6Wx7mHgXr3aJ+5b0M8kQhZCQUEcpG8pPbNmO4E/aY3zjFjgd+ieKlyxhCI3ecGvM3bASX/44CkXJMGOmcYBo1MxJ2E9aj2F9n32+IDf8fdg7Oxmk+6qNNg4F8OzR45TuUkr+cmbr4EB4j14GmNGiE4g1Ay0VxSyGkBXundpDr8A6etiyZfh28vdYtnM9egwbgJKl/fSw0qr8hV9a7UWpbMXysLe3RawBKXn25EVQx462vkf378sddMnJssXOrpJ9S5dj3fgJmEvn0y/destw5Wdm+84I6dQdK0d8h12z5+D45q2yN0Dxdz0kHxZvSQq+sZzj99b29sbAJtvpdTplEkEPaBZDJIiC6fux+rmLvKyTP2iD5V+MQPfBfWUmFCDRbtqmJVzd3dKjZ1q+QO5z3mJ+HzueXBwnMuCr1Go6eJ+Seuoqe3UZeI+UAGbAKnLTh/4yDye2bsOtiLNg5yHDlRTwYWvcvnIF5/buw/5lv2L9jxOx7IuvZWOPce7FxoGtdS6TVc3ZS4m9AixFdvRsLwHNaFBBWPQZi8oMmoBAPFIufjsXDxoG6wf3MYm0pw1H9yKoQb0UqOVZ2B97ce3vS/hpbjA+bNcG68eMx98HwlIJacndEXcjEsywpBRPLsdI2OJORaKCq6cn9FXiyhRC9ShejKBpdxMKBRcs5CE33KIXwZMCVezfEkLIbfo/CVHRskKRmXan30+pC13yBqVsTm4eQyBFKsQOr9sI94LOGD7uG3j5FAN/qaHAXiWPITW40Qct4M5e1zYfYARtfdumzZAXgen5kqV9+cgL94eb1lO2B3gb+4fefCdNmiSyy559VtxHSUKlxtvkJFTqLA1XV1lhuwAADHZJREFUjh5LdZXwy8WOzJsR56CotwqukrOWx+XCvr6cWZQkYF8ND+8LlnQyiyECYp9C9PqRo2hIb55Sz2r+QfuPM5AoQ7ELO3JvxKd8zGZPBzmrnORZRsV3G+FubCz4rKA5oTOFdwsUdEaRN0rgLYoAZiCUUilTpzY4tuLg4oJuc0Kg8fZGSMcusu8s6JM2MtZFio+UqFZFLuv/3L56DSo1bZtkzevDMq1LYm6mOHoIKr26waqkEuvTA3hx0tezuyxJOigHL9Ou3LwZ1Z/L7vI1o8aiUd+e8gfWbmQktvzyMzQZOADCgIuE+3J6t19vtB75NZzJK1yvcwd8NOY7CnDNxK5Zc2S3iV9QAFhSGFc/+Td5F66kHs/vPxix12/og03WKWg3kv8+0iSSHtAshgS6FNkHCce5b/GqlbFz41Yu5kiKoLjFI1JFC5XwSaWvIsfj4iHDwa6OnvN+gaZoUXDUkBH8yF1SnLQ0LhtL7E4pQfNmOAe0bOxs0Wv+L1BbW4P//MDaxvjfBDl7eKDzzGmkcjtjITGF4zFMx6wkUPK5+vkmdsqahU9IZjFECKETAl8QPqq0aIq4hET8+OUo3Lx6HayFcHtW08MHD7B3+y58P2wE3h3QT94mmCbHzef3HYgKjRqi5ZfDaWGc4KYtgpPbdpDT7wyjmJ3YH/XHnAVwcveQvb5NBvZDw949seKrEfhzwWLw4W6IGEcaO02dCGdSBhYNHorE6BhDaIbbJFROSogZYBj4cqtZDOFuARrtDsqnswu8Y/AU6FxcMbxbPzQzEIdWYsvvVa0rfzww8/uJcj5t1A9Q2n768rsMcedP326OlUtXozltQeUoovcwMRErvhwBViK6zJgq/8lB4j+3sT14FlhFfbtbZ8TfuCmHbvmMobkZvVlN5+jgqV2heLdvb5mpp3aEgrWsUgHV0WPuz4i+cAHz+w2Gvq9NIVrApSA8/Uoh+dlzmNoeFfz0uQTdt/tjY53Stxkrm80QJvDEzXMoJLGRmdKgV3cMWbsKpmLLI0K34bqjC6r17SvngYMGYkToi7aybdvCysYGAW1ayzS+3rkVHYOnomTVKrhLdsbsrj1RnOIeXWm7UFTOQr4+8KeDfev0mfLXIxz3DmzbBie2bscuskcOrfldVpl5oTkwdWTDJrCdcmD5SpSuXRPs41LR9sfMsSlgD+UrSAcXF3z8/RhSGhpifv9BsibHz5s+nd9/EMc2bUEjOo84Dp8eZqpsTWebrcrKSWOv6i5JUomUVMhYH4sYUl+IpCeaIq0kYJoxgua28+I2IJX00G9rU78CUfo6k2HZNWQGgj5p+9LbyB828MG865f5OEEufltyfzDeOz26onyD+nAmVz37vWzs7PAmnS/s16rbqQMdzJ4kBRfpMA9BCVKlS9fK+AmAEAJV32+B3nS2OJMKrsyFc5ZWdoqyNFVp0YybzE5+jq4o66xBCfuCo6nTzpS0lnKDt8pgq4lGZkqQRjuI9o2GEDhmAjVTUADFxznwtP6HCeCHVjoIlRqm3kJ+o5sN7g+XIoXBodukZ8/kraaAi4u8rfgFBsiqrpO7hmIZcTi5Y6fsOrlNnuPG/fuQ97iEMtRLOdMQQqS20xuNdeN/oseV8D5tp0KkwRjJWpYANWxpzobSpQeJOHsvHqfvxt8SQpQEEEipA9E1KCUqAr7SHejutSvA1bOaToW6Oh0mA7rDgIiCJCXDzIsmiPc+GwadLhkbyS1vZrdUNB9/f7CGxQbejTNn5POED2dmAAfDds9fhL8PhkNLYVj+2p3tGEELmErAjAJvg5coYvk+KRR8uOt3USSApcBUKuVY8I2UviwdLCmcpzSlZa/MECZBC6qr6ardW9NDOzRQ4109UOPpRYyysoQp/Ba/99lQnN93QHb+MV1Lkw05/nix63ftBN7OKpJG5uTujvpdOoK/NvHQc5+YSz/22nXs+nmu/HkRS52hfhH09h9PvI0z9+JSJCEOSp3blPLlh3efkFSwaHYgOg0psZQoZ4qSF8oSQ4io4VvgsWGA4dbStWuBP/vcOi0YioVuGDP3WlmbWjN6LFxJxW7Yu3umAyuS4uvgLONynRNXOC/j5GZDZZYMU2ltzjAE4i4NbtHdhGwCR/JNrR07PtWPxQTYNji9MxT86Q/7sLgtuxK9sbJiwH/e9uzRowxkd82Zh1hSq1uPHEHaoG0GmKGKIikX6cxgONc58RkjnyP343cIOkMySbVyhCF0plzlSVmSeNtp9c1Xsia0Z+ESSETkzK4/yO/UDWvGfA9um/FJB7Aqy2eGJbQN4V49ehxzuvfBuu9/Quic+Zja9n/Yt3QF+JuuK0eOIXz1GjTo1kX2kxnqb24bSwefLW85avzM6ZMjDBEqnDVncH0ctgvqdmyHvRQ9DG7fBb+NHgd2tXefPRP9li2ET2V/bJ40FcHtOtHiLcc9cjTq0zBVZyk4TtHN+f0GYtHgYVBRjJ7/5GHAr0tRtl5dstYXyoxZQ+P6VKqIQNICTdEzB8ZScuLO7cSDD25VNwc/RxhCxuMBcwY3hFOnw//An+W4eXmi26wZ+N9P48G+KFeKd7QmCepOHlvvcmWwd9FSTGnzKeb07As+e3hbu3H6jPxR9UOy8hPIrc//KoMNuj/mLsCSIZ9hwvsfYsNPE2kLssHH40aha8h0WUvj+EjzoYMwYPkSlKlbGw5urmj19RewVCMz9DzcJqmk8fVdfRO5nFnKGYYgKZT2Z7IfMxv+Zbggff7TH8fJjPAuV/YlBP7+t9WIrzBs3WpSmYeC/3nAxfBD4G2NfV7B7TpjwnutMZ1i/MysX7/6Bsc2boaVrQ3qde6IQauWo8PkCWS514IQIgN9tn1aDB2MPgvnkr/LPQMsC5W/ntx9Nt3c/jnCkCD3opEC0l5zJ/EqeLYODrJmxswZsGIJPt+0Dn0WzQNvQewG6UDOwF7z52Do2pUYtv43fDJ+LGp+2hYsDa8y3qv00Um4maxL+qC+r+8Tc/vnCEN4cAnq+ZznVrKnQBa7Y9hQZLcIf27KgSu2R3JrDnrj/CVJSQG1PIpF6bWbrOYYQ2w0RVZAwg2To/8HgUJCIoT0+R23h3UsZQboyjGGVBXiuSSk0TTGf+rmrViCbi2dkdfokCTjRXpAD3ie0u+QRKfH6qe+gW5ePzUVpZ5Sm8V3jjGEZxLopl0gJJH2CQk3mpGcrGwQ4OYJL3tHM7BzD4XiMHetdDYfB2m8Wwe5e/kGabQOgRovp0CNtgylVoHunovqm6lNGZt1jjJEUKRRp0vqIEG6Z2wChtrvJz1DeEI0Ih/zy2cII/fbSCIkUsu6V/XwiM7J0XOUITzxoEJFLwmoussPBMOXIhEsFelTdkgIjUs2v7QQkvleaP1ZMg2VStUvSOO5Wh+W3fUcZwhPmLzAq0hahnLZUFIkgqUifcomCRlYU+PVmRb0fUsllecq6JBWCfFRgJtnCNdzOuUKQ+gNq0UPNJGSfDaYygvZFoAiMSwhSlnpw23mLAqNqSOpGEB7fTDj13Dz3KxKsvIjU3A2tSdxm8n0QqIWqYRUIUCjXWMSNxuBucIQko79lNSURHhCTNvwhKj74XRGGEq3nz6CIjEsIUpZweW2zJ6fJUFAtAl095qRHjegcOF/aHF7JUvJxek86CMBmwn3HCBrSo/ZkOM26jtcgq54oEbbqbrG62Z6GjldzhWGKA9Bby1JSpEVAW5ap2IFHK8rbz+/9UpZkQRjudbOUSFnMKcDY79arfYPdNcajMhxJ7YPAt08Z5GW1DxI41U28IWmVKCmu7ZYkEbbPEDjOTGIvA2Mm9spVxlCEpIqKVo7J98HSU+7hMVHXeO3Xl8SFInQz6OeGNG8JOm6JKRPg9w969RwKXI1txcyu8bLVYaknzQxRwrQeC2w0Wj9vOwcxpJESJTA0pIez2SZ9nkJ0h8SxEfWGm2pIDevFUzXZJ88DnxtDFHWhS36Yg4Fv6GFVB2Ni9OSBLQXAB28uj2EE8nGGOXkjUAiHcYkBfiT9v9gCLRT2UiFgzReDYJIHWU6+A9cr50h6deQja4AN+3SAI22V6C7d71AjdY7yF3rQrkIcNe6Brp7+QS5aesHunn2D3TTLqvh7J36dyv4j1x5iiH/kTXN0mPkMyRLy5f9nfMZkv1rmiWK+QzJ0vJlf+d8hmT/mmZK0RRCPkNMrc5rgOUz5DUsuqkh8xlianVeAyyfIa9h0U0Nmc8QU6vzGmD5DHkNi25qyHyGmFqd1wDLZ8hrWHRTQ/4fAAD//zpoMWQAAAAGSURBVAMAewzVXwTdyKgAAAAASUVORK5CYII=" x="0" y="0" width="160" height="160"></image>
+                  </svg>
+      <span id="logoTxt">PLAYER STATS</span>
+    </div>
+    <div class="langbox">
+      <button class="on" onclick="switchLang('en')">EN</button>
+      <button onclick="switchLang('ru')">RU</button>
+    </div>
+  </header>
+
+  <div class="searchblock">
+    <div class="searchrow">
+      <div class="selwrap">
+        <select id="stype">
+          <option value="nickname" id="optNick">Nickname</option>
+          <option value="steam_id">Steam ID</option>
+        </select>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="inpwrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input id="sinp" placeholder="Search player..."/>
+      </div>
+      <button class="srcbtn" onclick="doSearch()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <span id="srcTxt">Search</span>
+      </button>
+    </div>
+    <div id="suggs" class="sugg"></div>
   </div>
 
-  <div id="playerResult" class="result"></div>
-
-  <div class="grid">
-    <div class="card">
-      <h2>🕒 Top Playtime</h2>
-      <ul id="topPlaytime" class="list"></ul>
+  <div id="pcard" class="pcard">
+    <div class="phead">
+      <div class="pavatar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+      <div><div id="pn" class="pname"></div><div id="pi" class="pid"></div></div>
     </div>
-    <div class="card">
-      <h2>🔫 Top Kills</h2>
-      <ul id="topKills" class="list"></ul>
-    </div>
-    <div class="card">
-      <h2>💀 Top Deaths</h2>
-      <ul id="topDeaths" class="list"></ul>
-    </div>
-    <div class="card">
-      <h2>⚖️ Top KDR</h2>
-      <ul id="topKdr" class="list"></ul>
-    </div>
+    <div id="pst" class="pstats"></div>
   </div>
+
+  <section>
+    <h2 class="sectitle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span id="lbTitle">Leaderboards</span></h2>
+    <div class="cgrid">
+      <div class="lbcard">
+        <div class="lbhead"><div class="lbicon t1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span class="lbtitle" id="ttl1">Top Playtime</span></div>
+        <div id="lb1" class="lbrows"><div class="ldng"><span></span><span></span><span></span></div></div>
+      </div>
+      <div class="lbcard">
+        <div class="lbhead"><div class="lbicon t2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><span class="lbtitle" id="ttl2">Top Kills</span></div>
+        <div id="lb2" class="lbrows"><div class="ldng"><span></span><span></span><span></span></div></div>
+      </div>
+      <div class="lbcard">
+        <div class="lbhead"><div class="lbicon t3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 15h8M9 9h.01M15 9h.01"/></svg></div><span class="lbtitle" id="ttl3">Top Deaths</span></div>
+        <div id="lb3" class="lbrows"><div class="ldng"><span></span><span></span><span></span></div></div>
+      </div>
+      <div class="lbcard">
+        <div class="lbhead"><div class="lbicon t4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></div><span class="lbtitle" id="ttl4">Top K/D</span></div>
+        <div id="lb4" class="lbrows"><div class="ldng"><span></span><span></span><span></span></div></div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <script>
-const SUPABASE_URL = "YOUR_SUPABASE_URL_HERE";
-const SUPABASE_KEY = "YOUR_SUPABASE_KEY_HERE";
+var API_URL="YOUR_SUPABASE_URL_HERE",API_KEY="YOUR_SUPABASE_KEY_HERE"
+var lang='en'
+var txt={en:{title:"PLAYER STATS",nick:"Nickname",src:"Search",ph:"Search player...",lb:"Leaderboards",t1:"Top Playtime",t2:"Top Kills",t3:"Top Deaths",t4:"Top K/D",kills:"Kills",deaths:"Deaths",kd:"K/D",time:"Playtime",seen:"Last Seen",nf:"Player not found"},ru:{title:"СТАТИСТИКА",nick:"Никнейм",src:"Поиск",ph:"Поиск игрока...",lb:"Лидеры",t1:"Время игры",t2:"Убийства",t3:"Смерти",t4:"К/Д",kills:"Убийств",deaths:"Смертей",kd:"К/Д",time:"Наиграно",seen:"Был в сети",nf:"Игрок не найден"}}
 
-function formatPlaytime(seconds) {
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = seconds % 60;
-  return `${h}h ${m}m ${s}s`;
-}
+function switchLang(l){lang=l;var b=document.querySelectorAll('.langbox button');b[0].className=l=='en'?'on':'';b[1].className=l=='ru'?'on':'';var t=txt[l];document.getElementById('logoTxt').textContent=t.title;document.getElementById('optNick').textContent=t.nick;document.getElementById('srcTxt').textContent=t.src;document.getElementById('sinp').placeholder=t.ph;document.getElementById('lbTitle').textContent=t.lb;document.getElementById('ttl1').textContent=t.t1;document.getElementById('ttl2').textContent=t.t2;document.getElementById('ttl3').textContent=t.t3;document.getElementById('ttl4').textContent=t.t4;localStorage.lang=l}
 
-async function fetchTopStats() {
-  const headers = { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY };
+function fmtTime(s){var h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h>0?h+'h '+m+'m':m+'m'}
 
-  const playtime = await fetch(`${SUPABASE_URL}/rest/v1/player_stats?select=nickname,total_play_seconds&order=total_play_seconds.desc&limit=5`, { headers }).then(r => r.json());
-  const kills = await fetch(`${SUPABASE_URL}/rest/v1/player_stats?select=nickname,kills&order=kills.desc&limit=5`, { headers }).then(r => r.json());
-  const deaths = await fetch(`${SUPABASE_URL}/rest/v1/player_stats?select=nickname,deaths&order=deaths.desc&limit=5`, { headers }).then(r => r.json());
-  const kdr = await fetch(`${SUPABASE_URL}/rest/v1/player_stats?select=nickname,kills,deaths`, { headers }).then(r => r.json());
+function mkRow(d,fn){return d.length?d.map(function(p,i){return'<div class="lbrow"><div class="rnk r'+(i+1)+'">'+(i+1)+'</div><span class="nick">'+p.nickname+'</span><span class="val">'+fn(p)+'</span></div>'}).join(''):'<div class="empty">—</div>'}
 
-  document.getElementById("topPlaytime").innerHTML = playtime.map(p => `<li><b>${p.nickname}</b> - ${formatPlaytime(p.total_play_seconds)}</li>`).join("");
-  document.getElementById("topKills").innerHTML = kills.map(p => `<li><b>${p.nickname}</b> - ${p.kills}</li>`).join("");
-  document.getElementById("topDeaths").innerHTML = deaths.map(p => `<li><b>${p.nickname}</b> - ${p.deaths}</li>`).join("");
-  document.getElementById("topKdr").innerHTML = kdr
-    .map(p => {
-      const ratio = p.deaths === 0 ? p.kills : (p.kills / p.deaths).toFixed(2);
-      return `<li><b>${p.nickname}</b> - KDR: ${ratio}</li>`;
-    })
-    .sort((a, b) => parseFloat(b.match(/[\d.]+/)) - parseFloat(a.match(/[\d.]+/)))
-    .slice(0, 5)
-    .join("");
-}
+function req(path){return fetch(API_URL+'/rest/v1/player_stats?'+path,{headers:{apikey:API_KEY,Authorization:'Bearer '+API_KEY}}).then(function(r){return r.json()})}
 
-async function searchPlayer() {
-  const type = document.getElementById("searchType").value;
-  const input = document.getElementById("searchInput").value.trim();
-  if (!input) return;
+function loadLb(){req('select=nickname,total_play_seconds&order=total_play_seconds.desc&limit=5').then(function(d){document.getElementById('lb1').innerHTML=mkRow(d,function(p){return fmtTime(p.total_play_seconds)})});req('select=nickname,kills&order=kills.desc&limit=5').then(function(d){document.getElementById('lb2').innerHTML=mkRow(d,function(p){return p.kills})});req('select=nickname,deaths&order=deaths.desc&limit=5').then(function(d){document.getElementById('lb3').innerHTML=mkRow(d,function(p){return p.deaths})});req('select=nickname,kills,deaths').then(function(d){var sorted=d.map(function(p){return{nickname:p.nickname,kd:p.deaths>0?p.kills/p.deaths:p.kills}}).sort(function(a,b){return b.kd-a.kd}).slice(0,5);document.getElementById('lb4').innerHTML=mkRow(sorted,function(p){return p.kd.toFixed(2)})})}
 
-  const headers = { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY };
-  const url = `${SUPABASE_URL}/rest/v1/player_stats?${type}=ilike.%25${encodeURIComponent(input)}%25&select=*`;
-  const data = await fetch(url, { headers }).then(r => r.json());
+function doSearch(){var t=document.getElementById('stype').value,v=document.getElementById('sinp').value.trim();if(!v)return;req(t+'=ilike.%25'+encodeURIComponent(v)+'%25&select=*').then(function(d){if(!d.length){document.getElementById('pcard').className='pcard';alert(txt[lang].nf);return}if(d.length>1){showSuggs(d)}else{showP(d[0])}})}
 
-  if (data.length === 0) {
-    document.getElementById("playerResult").innerHTML = "<p>No player found.</p>";
-    return;
-  }
+function showSuggs(arr){var box=document.getElementById('suggs');box.innerHTML=arr.slice(0,6).map(function(p){return'<div onclick="pickP(\''+p.steam_id+'\')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'+p.nickname+'</div>'}).join('');box.className='sugg show'}
 
-  if (data.length > 1) {
-    const suggestionsBox = document.getElementById("suggestions");
-    suggestionsBox.innerHTML = "<div><b>Did you mean:</b></div>" +
-      data.map(p => `<div onclick="showPlayer('${p.steam_id}')">${p.nickname}</div>`).join("");
-    return;
-  }
+function pickP(id){document.getElementById('suggs').className='sugg';req('steam_id=eq.'+encodeURIComponent(id)+'&select=*').then(function(d){if(d.length)showP(d[0])})}
 
-  showPlayer(data[0].steam_id);
-}
+function showP(p){var t=txt[lang],kd=p.deaths>0?p.kills/p.deaths:p.kills;document.getElementById('pn').textContent=p.nickname;document.getElementById('pi').textContent=p.steam_id;document.getElementById('pst').innerHTML='<div class="pstat"><div class="pstatval">'+p.kills+'</div><div class="pstatlbl">'+t.kills+'</div></div><div class="pstat"><div class="pstatval">'+p.deaths+'</div><div class="pstatlbl">'+t.deaths+'</div></div><div class="pstat"><div class="pstatval">'+kd.toFixed(2)+'</div><div class="pstatlbl">'+t.kd+'</div></div><div class="pstat"><div class="pstatval">'+fmtTime(p.total_play_seconds)+'</div><div class="pstatlbl">'+t.time+'</div></div><div class="pstat"><div class="pstatval">'+new Date(p.last_seen_utc).toLocaleDateString()+'</div><div class="pstatlbl">'+t.seen+'</div></div>';document.getElementById('pcard').className='pcard vis';document.getElementById('suggs').className='sugg'}
 
-async function showPlayer(steamId) {
-  const headers = { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY };
-  const url = `${SUPABASE_URL}/rest/v1/player_stats?steam_id=eq.${encodeURIComponent(steamId)}&select=*`;
-  const data = await fetch(url, { headers }).then(r => r.json());
+document.getElementById('sinp').oninput=function(){var v=this.value.trim();if(v.length<2){document.getElementById('suggs').className='sugg';return}req('nickname=ilike.%25'+encodeURIComponent(v)+'%25&select=steam_id,nickname&limit=6').then(function(d){if(d.length)showSuggs(d);else document.getElementById('suggs').className='sugg'})}
 
-  if (data.length === 0) {
-    document.getElementById("playerResult").innerHTML = "<p>No player found.</p>";
-    return;
-  }
+document.onclick=function(e){if(!e.target.closest('.searchblock'))document.getElementById('suggs').className='sugg'}
 
-  const p = data[0];
-  const kdr = p.deaths === 0 ? p.kills : (p.kills / p.deaths).toFixed(2);
+document.getElementById('sinp').onkeypress=function(e){if(e.key=='Enter')doSearch()}
 
-  document.getElementById("playerResult").innerHTML = `
-    <div class="player-info">
-      <p><b>Nickname:</b> ${p.nickname}</p>
-      <p><b>Steam ID:</b> ${p.steam_id}</p>
-      <p><b>Kills:</b> ${p.kills}</p>
-      <p><b>Deaths:</b> ${p.deaths}</p>
-      <p><b>KDR:</b> ${kdr}</p>
-      <p><b>Playtime:</b> ${formatPlaytime(p.total_play_seconds)}</p>
-      <p><b>Last Seen:</b> ${new Date(p.last_seen_utc).toLocaleString()}</p>
-    </div>
-  `;
+if(localStorage.lang)switchLang(localStorage.lang)
 
-  document.getElementById("suggestions").innerHTML = "";
-}
-
-async function showSuggestions() {
-  const input = document.getElementById("searchInput").value.trim();
-  if (!input) {
-    document.getElementById("suggestions").innerHTML = "";
-    return;
-  }
-
-  const headers = { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY };
-  const url = `${SUPABASE_URL}/rest/v1/player_stats?nickname=ilike.%25${encodeURIComponent(input)}%25&select=steam_id,nickname&limit=5`;
-  const data = await fetch(url, { headers }).then(r => r.json());
-
-  if (data.length === 0) {
-    document.getElementById("suggestions").innerHTML = "";
-    return;
-  }
-
-  document.getElementById("suggestions").innerHTML =
-    data.map(p => `<div onclick="showPlayer('${p.steam_id}')">${p.nickname}</div>`).join("");
-}
-
-fetchTopStats();
+loadLb()
 </script>
 </body>
 </html>
