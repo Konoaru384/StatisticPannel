@@ -3,25 +3,12 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=220&section=header&text=StatisticPannel&fontSize=65&fontColor=ffffff&animation=twinkling" />
 </p>
 
-<table align="center">
-  <tr>
-    <td>
-      <a href="https://github.com/Konoaru384/StatisticPannel/releases/latest">
-        <img src="https://img.shields.io/github/v/release/Konoaru384/StatisticPannel?label=Latest%20Release&color=blue&style=for-the-badge" alt="Latest Release" />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/Konoaru384/StatisticPannel/releases">
-        <img src="https://img.shields.io/github/downloads/Konoaru384/StatisticPannel/total?label=Total%20Downloads&color=success&style=for-the-badge" alt="Total Downloads" />
-      </a>
-    </td>
-    <td>
-      <a href="https://discord.com/invite/Bbx28xhrKE">
-        <img src="https://img.shields.io/badge/Discord-Join%20Us-7289DA?style=for-the-badge&logo=discord" alt="Discord" />
-      </a>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="https://img.shields.io/github/downloads/Konoaru384/StatisticPannel/total?color=0af&label=Downloads" />
+  <img src="https://img.shields.io/github/v/release/Konoaru384/StatisticPannel?label=Latest%20Release" />
+  <img src="https://img.shields.io/github/stars/Konoaru384/StatisticPannel?label=Stars&color=yellow" />
+  <img src="https://img.shields.io/github/repo-size/Konoaru384/StatisticPannel?label=Repository%20Size" />
+</p>
 
 <h1 align="center">StatisticPannel Plugin</h1>
 
